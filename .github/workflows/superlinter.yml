@@ -1,14 +1,24 @@
 on:
   push:
-    branches:
-    public class Example {
-    public static void main(String[] args) {
-        int unusedVariable = 0; // Unused variable
-        System.out.println("Hello World!");
-        if (true) {
-            // Empty block
-        }
-        System.out.println("This line exceeds the 100 character limit which is a common style issue that linters might flag as problematic");
-    }
-}
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Super Linter
+        uses: github/super-linter@v5
+        env:
+          VALIDATE_ALL_CODEBASE: false # to parse and lint only added new codes
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_JAVA: true
+          DEFAULT_BRANCH: main
+          # OUTPUT_DETAILS: 
+          #OUTPUT_FOLDER : 
+
+ 
